@@ -4,12 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
     <modules>
         <module>twitter-to-kafka-service</module>
-        <module>kafka</module>
-		<module>kafka/kafka-model</module>
-		<module>kafka/kafka-admin</module>
-		<module>kafka/kafka-producer</module>
-		<module>common-config</module>
-	</modules>
+        <module>common-model</module>
+    </modules>
     <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -38,12 +34,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.nikowis</groupId>
-				<artifactId>common-config</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.nikowis</groupId>
-				<artifactId>kafka-model</artifactId>
+				<artifactId>common-model</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

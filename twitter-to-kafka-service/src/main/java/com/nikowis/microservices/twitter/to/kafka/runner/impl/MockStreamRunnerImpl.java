@@ -9,6 +9,7 @@ import com.nikowis.microservices.twitter.to.kafka.runner.StreamRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -18,8 +19,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -46,7 +45,7 @@ public class MockStreamRunnerImpl implements StreamRunner {
     };
 
     public static class MockTweet {
-        String createdAt;
+        String created_at;
         String id;
         String text;
         MockUser user;
@@ -66,19 +65,19 @@ public class MockStreamRunnerImpl implements StreamRunner {
 
     @Override
     public void start() {
-        Long mockSleepMs = config.getMockSleepMs();
         LOG.info("Starting mock twitter stream");
-        simulateStreaming(mockSleepMs);
+        simulateStreaming();
     }
 
-    private void simulateStreaming(Long mockSleepMs) {
-        Executors.newSingleThreadExecutor().submit(() -> {
-            while (true) {
-                Status status = TwitterObjectFactory.createStatus(createNewTweetJson());
-                listener.onStatus(status);
-                sleep(mockSleepMs);
-            }
-        });
+    @Scheduled(fixedDelayString = "${twitter-to-kafka-service.mock-sleep-ms}")
+    public void simulateStreaming() {
+        Status status = null;
+        try {
+            status = TwitterObjectFactory.createStatus(createNewTweetJson());
+            listener.onStatus(status);
+        } catch (TwitterException e) {
+            LOG.error("Twitter exception while creating status ", e);
+        }
     }
 
     private void sleep(Long mockSleepMs) {
@@ -91,7 +90,7 @@ public class MockStreamRunnerImpl implements StreamRunner {
 
     private String createNewTweetJson() {
         MockTweet tweet = new MockTweet();
-        tweet.createdAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.ENGLISH));
+        tweet.created_at = ZonedDateTime.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.ENGLISH));
         tweet.id = String.valueOf(ThreadLocalRandom.current().nextLong());
         tweet.text = createRandomTweetText();
         tweet.user = new MockTweet.MockUser();
