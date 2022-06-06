@@ -5,7 +5,7 @@ twitter-to-kafka-service:
     - Spring
     - Kafka
     - Elasticsearch
-  enable-mock-tweets: false
+  enable-mock-tweets: true
   mock-sleep-ms: 1000
 
 retry-config:
