@@ -41,7 +41,7 @@
         </dependency>
         <dependency>
             <groupId>com.nikowis</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>common-model</artifactId>
         </dependency>
         <dependency>
             <groupId>com.nikowis</groupId>
