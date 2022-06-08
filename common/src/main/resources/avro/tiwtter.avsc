@@ -1,5 +1,5 @@
 {
-"namespace": "com.nikowis.microservices.kafka.avro.model",
+"namespace": "com.nikowis.tstreams.kafka.avro.model",
   "type": "record",
   "name": "TwitterAvroModel",
   "fields": [
