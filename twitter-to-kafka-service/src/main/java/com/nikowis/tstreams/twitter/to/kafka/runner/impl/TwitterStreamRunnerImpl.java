@@ -1,6 +1,6 @@
 package com.nikowis.tstreams.twitter.to.kafka.runner.impl;
 
-import com.nikowis.tstreams.twitter.to.kafka.config.TwitterToKafkaServiceConfigData;
+import com.nikowis.tstreams.config.TwitterToKafkaServiceConfigData;
 import com.nikowis.tstreams.twitter.to.kafka.listener.TwitterKafkaStatusListener;
 import com.nikowis.tstreams.twitter.to.kafka.runner.StreamRunner;
 import org.slf4j.Logger;

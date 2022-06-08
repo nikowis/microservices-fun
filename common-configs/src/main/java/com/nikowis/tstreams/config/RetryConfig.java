@@ -1,4 +1,4 @@
-package com.nikowis.tstreams.twitter.to.kafka.config;
+package com.nikowis.tstreams.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

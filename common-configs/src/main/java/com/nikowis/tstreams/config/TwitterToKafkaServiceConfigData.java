@@ -1,4 +1,4 @@
-package com.nikowis.tstreams.twitter.to.kafka.config;
+package com.nikowis.tstreams.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

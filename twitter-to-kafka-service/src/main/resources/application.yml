@@ -10,4 +10,5 @@ spring:
       username: root
       password: s3cr3t
       fail-fast: true
-
+  config:
+    import: configserver:http://root:s3cr3t@localhost:8888

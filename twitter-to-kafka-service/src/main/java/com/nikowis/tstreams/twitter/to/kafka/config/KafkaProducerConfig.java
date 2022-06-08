@@ -1,5 +1,7 @@
 package com.nikowis.tstreams.twitter.to.kafka.config;
 
+import com.nikowis.tstreams.config.KafkaConfigData;
+import com.nikowis.tstreams.config.KafkaProducerConfigData;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.context.annotation.Bean;

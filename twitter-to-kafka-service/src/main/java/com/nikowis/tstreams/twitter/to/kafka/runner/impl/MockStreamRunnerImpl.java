@@ -2,7 +2,7 @@ package com.nikowis.tstreams.twitter.to.kafka.runner.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nikowis.tstreams.twitter.to.kafka.config.TwitterToKafkaServiceConfigData;
+import com.nikowis.tstreams.config.TwitterToKafkaServiceConfigData;
 import com.nikowis.tstreams.twitter.to.kafka.exception.BusinessException;
 import com.nikowis.tstreams.twitter.to.kafka.listener.TwitterKafkaStatusListener;
 import com.nikowis.tstreams.twitter.to.kafka.runner.StreamRunner;

@@ -1,7 +1,7 @@
 package com.nikowis.tstreams.twitter.to.kafka.listener;
 
+import com.nikowis.tstreams.config.KafkaConfigData;
 import com.nikowis.tstreams.kafka.avro.model.TwitterAvroModel;
-import com.nikowis.tstreams.twitter.to.kafka.config.KafkaConfigData;
 import com.nikowis.tstreams.twitter.to.kafka.producer.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
