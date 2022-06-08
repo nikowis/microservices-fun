@@ -14,10 +14,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nikowis</groupId>
-	<artifactId>microservices-fun</artifactId>
+	<artifactId>tstreams</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservices-fun</name>
-	<description>Playing with microservices</description>
+	<name>tstreams</name>
 	<packaging>pom</packaging>
 	<properties>
 		<java.version>17</java.version>
