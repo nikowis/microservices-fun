@@ -33,6 +33,10 @@
             <groupId>com.nikowis</groupId>
             <artifactId>common-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.nikowis</groupId>
+            <artifactId>common-configs</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
