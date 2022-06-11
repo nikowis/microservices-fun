@@ -2,6 +2,8 @@ package com.nikowis.tstreams.kafka.to.elastic.consumer.impl;
 
 
 import com.nikowis.tstreams.config.KafkaConfigData;
+import com.nikowis.tstreams.elastic.index.client.service.ElasticIndexClient;
+import com.nikowis.tstreams.elastic.model.index.impl.TwitterIndexModel;
 import com.nikowis.tstreams.kafka.avro.model.TwitterAvroModel;
 import com.nikowis.tstreams.kafka.to.elastic.consumer.KafkaConsumer;
 import org.slf4j.Logger;
@@ -15,7 +17,11 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroModel> {
@@ -26,10 +32,14 @@ public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroMode
 
     private final KafkaConfigData kafkaConfigData;
 
+    private final ElasticIndexClient<TwitterIndexModel> elasticIndexClient;
+
     public TwitterKafkaConsumer(KafkaListenerEndpointRegistry listenerEndpointRegistry,
-                                KafkaConfigData configData) {
+                                KafkaConfigData configData,
+                                ElasticIndexClient<TwitterIndexModel> indexClient) {
         this.kafkaListenerEndpointRegistry = listenerEndpointRegistry;
         this.kafkaConfigData = configData;
+        this.elasticIndexClient = indexClient;
     }
 
     @EventListener
@@ -51,5 +61,22 @@ public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroMode
                 partitions.toString(),
                 offsets.toString(),
                 Thread.currentThread().getId());
+
+        List<TwitterIndexModel> twitterIndexModels = getElasticModels(messages);
+        List<String> documentIds = elasticIndexClient.save(twitterIndexModels);
+        LOG.info("Documents saved to elasticsearch with ids {}", documentIds.toArray());
+    }
+
+    public List<TwitterIndexModel> getElasticModels(List<TwitterAvroModel> avroModels) {
+        return avroModels.stream()
+                .map(avroModel -> TwitterIndexModel
+                        .builder()
+                        .userId(avroModel.getUserId())
+                        .id(String.valueOf(avroModel.getId()))
+                        .text(avroModel.getText())
+                        .createdAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(avroModel.getCreatedAt()),
+                                ZoneId.systemDefault()))
+                        .build()
+                ).collect(Collectors.toList());
     }
 }
