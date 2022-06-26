@@ -24,7 +24,6 @@ services:
     image: ${GROUP_ID}/config.server:${SERVICE_VERSION:-latest}
     ports:
       - "5006:5006"
-      - "8888:8888"
     volumes:
       - "./docker-logs:/workspace/config-server/logs"
     networks:
@@ -35,7 +34,6 @@ services:
       - "5007:5007"
     volumes:
       - "./docker-logs:/workspace/kafka-to-elastic-service/logs"
-
     user: root
     depends_on:
       - config-server
@@ -53,6 +51,7 @@ services:
       - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
       - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
+      - "SPRING_CONFIG_IMPORT=configserver:http://root:s3cr3t@config-server:8888"
       - "ELASTIC-CONFIG_INDEX-NAME=twitter-index"
       - "ELASTIC-CONFIG_CONNECTION-URL=http://elastic-1:9200"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
