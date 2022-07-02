@@ -9,7 +9,8 @@
 		<module>twitter-to-kafka-service</module>
 		<module>kafka-to-elastic-service</module>
 		<module>elastic</module>
-    </modules>
+		<module>elastic-query-service</module>
+	</modules>
     <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -35,6 +36,7 @@
 		<spring-cloud-dependencies.version>2021.0.3</spring-cloud-dependencies.version>
 		<spring-boot-starter-aop.version>2.7.0</spring-boot-starter-aop.version>
 		<elastic.version>7.15.2</elastic.version>
+		<springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
 	</properties>
 
 	<dependencyManagement>
@@ -145,7 +147,11 @@
 				<artifactId>elasticsearch-java</artifactId>
 				<version>${elastic.version}</version>
 			</dependency>
-
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-ui</artifactId>
+				<version>${springdoc-openapi-ui.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: elastic-query-service
+  profiles:
+    active: dev
+  cloud:
+    config:
+      name: elastic-query-service,config-client
+      username: root
+      password: s3cr3t
+      fail-fast: true
